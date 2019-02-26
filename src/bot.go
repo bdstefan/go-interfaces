@@ -9,6 +9,7 @@ type bot interface {
 type englishBot struct {
 	message string
 }
+
 type spanishBot struct {
 	message string
 }
