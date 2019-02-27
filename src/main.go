@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"net/http"
 	"os"
 )
@@ -23,14 +24,14 @@ func main()  {
 	resp, err := http.Get("https://www.google.com")
 
 	if err != nil {
-		fmt.Println("Get operation failed with reason:", err)
+		fmt.Println("HTTP Get operation failed with reason:", err)
 		os.Exit(1)
 	}
 
 
-	byteSliceResponse := make([]byte, 99999)
+	_, err = io.Copy(os.Stdout, resp.Body)
 
-	resp.Body.Read(byteSliceResponse)
-
-	fmt.Println(string(byteSliceResponse))
+	if err != nil {
+		fmt.Println("HTTP response body couldn't be sent to stdout: ", err)
+	}
 }
