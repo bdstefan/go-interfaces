@@ -27,6 +27,10 @@ func main()  {
 		os.Exit(1)
 	}
 
-	fmt.Println(resp)
-}
 
+	byteSliceResponse := make([]byte, 99999)
+
+	resp.Body.Read(byteSliceResponse)
+
+	fmt.Println(string(byteSliceResponse))
+}
